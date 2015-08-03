@@ -18,6 +18,7 @@ gem 'sqlite3'
 gem 'omniauth'
 gem 'omniauth-slack'
 
+gem 'addressable'
 gem 'rails-reverse-proxy'
 
 group :production do

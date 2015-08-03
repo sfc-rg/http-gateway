@@ -12,16 +12,16 @@
           = link_to title, root_path, class: 'navbar-brand'
         #navbar.navbar-collapse.collapse
           %ul.nav.navbar-nav
-            %li.active
+            %li{ class: current_page?(root_path) ? 'active' : '' }
               = link_to 'Home', root_path
-            %li
+            %li{ class: current_page?(proxy_rules_path) ? 'active' : '' }
               = link_to 'ルール一覧', proxy_rules_path
-            %li
+            %li{ class: current_page?(new_proxy_rule_path) ? 'active' : '' }
               = link_to 'ルールを作成', new_proxy_rule_path
           %ul.nav.navbar-nav.navbar-right
             - if current_user.blank?
               %li
-              = link_to 'ログインする', '/auth/slack'
+                = link_to 'ログインする', auth_path(:slack)
             - else
               %li
                 %a= current_user.name

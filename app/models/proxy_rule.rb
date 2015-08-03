@@ -1,8 +1,10 @@
 class ProxyRule < ActiveRecord::Base
+  VALID_DOMAIN_REGEX = /\A(?:[A-Za-z0-9][A-Za-z0-9\-]{0,61}[A-Za-z0-9]|[A-Za-z0-9])\Z/
+
   belongs_to :user
 
   validates :name, presence: true
-  validates :domain, format: { with: /\A[a-z]([a-z0-9\.][a-z0-9])?\Z/ }
+  validates :domain, format: { with: VALID_DOMAIN_REGEX }, uniqueness: true
   validates :url, format: { with: /\Ahttp:/ }
   enum auth_type: { open: 0, intranet: 1, slack_auth: 2 }
 

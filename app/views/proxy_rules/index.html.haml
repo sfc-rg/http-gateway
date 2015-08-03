@@ -3,6 +3,7 @@
     %thead
       %tr
         %th #
+        %th User
         %th Name
         %th Domain
         %th Url
@@ -10,6 +11,7 @@
       - @proxy_rules.each do |rule|
         %tr
           %td= rule.id
+          %td= rule.user.name
           %td= rule.name
           %td= rule.domain
           %td= rule.url
