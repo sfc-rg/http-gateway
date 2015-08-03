@@ -1,0 +1,15 @@
+.container
+  %table.table.table-striped
+    %thead
+      %tr
+        %th #
+        %th Name
+        %th Domain
+        %th Url
+    %tbody
+      - @proxy_rules.each do |rule|
+        %tr
+          %td= rule.id
+          %td= rule.name
+          %td= rule.domain
+          %td= rule.url

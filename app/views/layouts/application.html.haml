@@ -15,9 +15,9 @@
             %li.active
               = link_to 'Home', root_path
             %li
-              %a{:href => "#about"} About
+              = link_to 'ルール一覧', proxy_rules_path
             %li
-              %a{:href => "#contact"} Contact
+              = link_to 'ルールを作成', new_proxy_rule_path
           %ul.nav.navbar-nav.navbar-right
             - if current_user.blank?
               %li
@@ -25,10 +25,4 @@
             - else
               %li
                 %a= current_user.name
-    .container.theme-showcase
-      .jumbotron
-        %h1= title
-        %p This is a template showcasing the optional theme stylesheet included in Bootstrap.
-        %p Use it as a starting point to create something more unique by building on or modifying it.
-    .container
-      = yield
+    = yield

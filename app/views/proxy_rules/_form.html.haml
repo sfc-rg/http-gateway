@@ -1,0 +1,12 @@
+.container
+  = form_for @proxy_rule do |f|
+    .form-group
+      %label Name
+      = f.text_field :name, class: 'form-control', placeholder: '内部WIKI'
+    .form-group
+      %label Domain
+      = f.text_field :domain, class: 'form-control', placeholder: 'wiki'
+    .form-group
+      %label Url
+      = f.text_field :url, class: 'form-control', placeholder: '203.178.128.99'
+    = f.submit
