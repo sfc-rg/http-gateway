@@ -18,6 +18,8 @@ gem 'sqlite3'
 gem 'omniauth'
 gem 'omniauth-slack'
 
+gem 'rails-reverse-proxy'
+
 group :production do
   gem 'mysql2'
 end

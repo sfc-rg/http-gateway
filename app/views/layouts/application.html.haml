@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %title= title
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse
+      .container
+        .navbar-header
+          = link_to title, root_path, class: 'navbar-brand'
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li.active
+              = link_to 'Home', root_path
+            %li
+              %a{:href => "#about"} About
+            %li
+              %a{:href => "#contact"} Contact
+          %ul.nav.navbar-nav.navbar-right
+            - if current_user.blank?
+              %li
+              = link_to 'ログインする', '/auth/slack'
+            - else
+              %li
+                %a= current_user.name
+    .container.theme-showcase
+      .jumbotron
+        %h1= title
+        %p This is a template showcasing the optional theme stylesheet included in Bootstrap.
+        %p Use it as a starting point to create something more unique by building on or modifying it.
+    .container
+      = yield
