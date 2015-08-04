@@ -304,6 +304,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   spring
+  sprockets (~> 3.2)
   sqlite3
   therubyracer
   turbolinks
