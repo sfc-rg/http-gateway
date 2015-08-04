@@ -2,7 +2,7 @@ class SessionController < ApplicationController
   def slack_callback
     auth = request.env['omniauth.auth']
 
-    credential = SlackCredential.find_or_initialize_by(user_id: auth.info.user_id)
+    credential = SlackCredential.find_or_initialize_by(slack_user_id: auth.info.user_id)
     user = if credential.new_record?
       User.create(email: auth.info.email,
                   name: auth.info.name,

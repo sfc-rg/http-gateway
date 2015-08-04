@@ -10,8 +10,8 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :slack_credentials do |t|
-      t.references :users, index: true
-      t.string :user_id
+      t.references :user, index: true
+      t.string :slack_user_id
 
       t.timestamps null: false
     end

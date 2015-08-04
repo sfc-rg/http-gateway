@@ -28,13 +28,13 @@ ActiveRecord::Schema.define(version: 20150803123742) do
   add_index "proxy_rules", ["user_id"], name: "index_proxy_rules_on_user_id"
 
   create_table "slack_credentials", force: :cascade do |t|
-    t.integer  "users_id"
-    t.string   "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.string   "slack_user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "slack_credentials", ["users_id"], name: "index_slack_credentials_on_users_id"
+  add_index "slack_credentials", ["user_id"], name: "index_slack_credentials_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
