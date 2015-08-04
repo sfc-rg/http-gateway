@@ -12,8 +12,9 @@ Rails.application.routes.draw do
     match '/*path', to: 'proxy_rules#filter'
   end
 
-  def sub_domain?(req)
-    if req.subdomain.present? || req.subdomain == 'www'
+  def sub_domain?(request)
+    domain = request.subdomain.gsub(/\.?sfc/, '') # sfc.widead.jp
+    if domain.present? || domain == 'www'
       true
     else
       false
