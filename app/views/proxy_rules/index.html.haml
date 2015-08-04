@@ -10,7 +10,10 @@
     %tbody
       - @proxy_rules.each do |rule|
         %tr
-          %td= rule.id
+          - if rule.user == current_user
+            %td= link_to rule.id, edit_proxy_rule_path(rule)
+          - else
+            %td= rule.id
           %td= rule.user.name
           %td= rule.name
           %td= rule.domain

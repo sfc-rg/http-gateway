@@ -25,7 +25,7 @@ class ProxyRulesController < ApplicationController
   end
 
   def update
-    if ProxyRule.update(proxy_rule_params)
+    if @proxy_rule.update(proxy_rule_params)
       redirect_to proxy_rules_path, notice: 'ユーザ登録しました'
     else
       render 'edit'
