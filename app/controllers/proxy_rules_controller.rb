@@ -38,6 +38,10 @@ class ProxyRulesController < ApplicationController
   def filter
     domain = request.subdomain.gsub(/\.?sfc/, '') # sfc.widead.jp
     @proxy_rule = ProxyRule.find_by(domain: domain)
+    if @proxy_rule.blank?
+      redirect_to proxy_rules_path
+      return
+    end
 
     require 'addressable/template'
     reverse_proxy @proxy_rule.url do |config|
