@@ -54,6 +54,10 @@ class ProxyRulesController < ApplicationController
       return
     end
 
+    if @proxy_rule.https? != request.ssl?
+      redirect_to domain.original_url(request.path, ssl: @proxy_rule.https?)
+    end
+
     require 'addressable/template'
     reverse_proxy @proxy_rule.url do |config|
       config.on_missing do |code, response|
@@ -83,7 +87,7 @@ class ProxyRulesController < ApplicationController
   end
 
   def proxy_rule_params
-    params.require(:proxy_rule).permit(:name, :domain, :url, :auth_type, :expired_at)
+    params.require(:proxy_rule).permit(:name, :domain, :url, :auth_type, :https, :expired_at)
   end
 
   def request_from_wide?

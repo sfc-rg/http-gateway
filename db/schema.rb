@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803123742) do
+ActiveRecord::Schema.define(version: 20150805233257) do
 
   create_table "proxy_rules", force: :cascade do |t|
     t.integer  "user_id"
@@ -19,9 +19,10 @@ ActiveRecord::Schema.define(version: 20150803123742) do
     t.string   "name"
     t.string   "url"
     t.integer  "auth_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.datetime "expired_at"
+    t.boolean  "https",      default: false, null: false
   end
 
   add_index "proxy_rules", ["expired_at"], name: "index_proxy_rules_on_expired_at"

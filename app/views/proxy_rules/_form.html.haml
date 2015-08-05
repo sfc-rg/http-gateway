@@ -15,4 +15,7 @@
     .form-group
       %label Auth Type
       = f.select :auth_type, ProxyRule.auth_types.keys, {}, class: 'form-control'
+    .form-group
+      %label Force HTTPS
+      = f.check_box :https
     = f.submit

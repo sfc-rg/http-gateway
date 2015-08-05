@@ -8,6 +8,7 @@
         %th Domain
         %th Url
         %th Auth Type
+        %th HTTPS
     %tbody
       - @proxy_rules.each do |rule|
         %tr
@@ -20,3 +21,4 @@
           %td= link_to rule.domain, rule.link_url
           %td= rule.url
           %td= rule.auth_type
+          %td= rule.https

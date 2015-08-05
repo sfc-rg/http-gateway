@@ -5,8 +5,12 @@ class Domain
     @request = request
   end
 
-  def original_url(path)
-    "#{@request.ssl? ? 'https' : 'http'}://#{BASE_DOMAIN}:#{@request.server_port}#{path}"
+  def original_url(path, options = {})
+    options = {
+      ssl: @request.ssl?
+    }.merge(options)
+
+    "#{options[:ssl] ? 'https' : 'http'}://#{BASE_DOMAIN}:#{@request.server_port}#{path}"
   end
 
   def subdomain
