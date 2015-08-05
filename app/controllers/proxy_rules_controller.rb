@@ -55,7 +55,8 @@ class ProxyRulesController < ApplicationController
     end
 
     if @proxy_rule.https? != request.ssl?
-      redirect_to domain.original_url(request.path, ssl: @proxy_rule.https?)
+      redirect_to @proxy_rule.link_url + request.path
+      return
     end
 
     require 'addressable/template'

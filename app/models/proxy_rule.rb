@@ -11,6 +11,6 @@ class ProxyRule < ActiveRecord::Base
   scope :active, -> { where('expired_at IS NULL OR expired_at < ?', Time.now) }
 
   def link_url
-    "#{self.https? ? 'https' : 'http'}://#{self.domain}.#{Domain::BASE_DOMAIN}/"
+    "#{self.https? ? 'https' : 'http'}://#{self.domain}.#{Domain::BASE_DOMAIN}"
   end
 end
