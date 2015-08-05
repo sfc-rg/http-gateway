@@ -1,7 +1,7 @@
 class ProxyRulesController < ApplicationController
   include ReverseProxy::Controller
 
-  before_action :require_current_user, only: [:new, :edit, :create, :update, :destroy]
+  before_action :require_current_user
   before_action :set_proxy_rule, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -54,9 +54,7 @@ class ProxyRulesController < ApplicationController
   private
 
   def require_current_user
-    if current_user.blank?
-      redirect_to auth_path(:slack)
-    end
+    redirect_to auth_path(:slack) if current_user.blank?
   end
 
   def set_proxy_rule
