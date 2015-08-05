@@ -1,5 +1,5 @@
 class ProxyRule < ActiveRecord::Base
-  VALID_DOMAIN_REGEX = /\A(?:[A-Za-z0-9][A-Za-z0-9\-]{0,61}[A-Za-z0-9]|[A-Za-z0-9])\Z/
+  VALID_DOMAIN_REGEX = /\A(?:[A-Za-z0-9][A-Za-z0-9\-]{0,61}[A-Za-z0-9]|[A-Za-z0-9])\z/
 
   belongs_to :user
 
