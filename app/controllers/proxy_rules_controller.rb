@@ -44,7 +44,7 @@ class ProxyRulesController < ApplicationController
       return
     end
 
-    if @proxy_rule.intranet? && request_from_wide?
+    if @proxy_rule.intranet? && !request_from_wide?
       redirect_to domain.original_url(root_path)
       return
     end
