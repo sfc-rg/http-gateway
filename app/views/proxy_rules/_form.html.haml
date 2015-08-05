@@ -12,4 +12,7 @@
     .form-group
       %label Url
       = f.text_field :url, class: 'form-control', placeholder: 'http://203.178.128.99/'
+    .form-group
+      %label Auth Type
+      = f.select :auth_type, ProxyRule.auth_types.keys, {}, class: 'form-control'
     = f.submit

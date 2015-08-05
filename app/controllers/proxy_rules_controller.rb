@@ -4,6 +4,8 @@ class ProxyRulesController < ApplicationController
   before_action :require_current_user, except: :filter
   before_action :set_proxy_rule, only: [:show, :edit, :update, :destroy]
 
+  WIDE_IPADDR_RANGE = '203.178.0.0/16'
+
   def index
     @proxy_rules = ProxyRule.active.all
   end
@@ -42,6 +44,16 @@ class ProxyRulesController < ApplicationController
       return
     end
 
+    if @proxy_rule.intranet? && request_from_wide?
+      redirect_to domain.original_url(root_path)
+      return
+    end
+
+    if @proxy_rule.slack_auth? && current_user.blank?
+      redirect_to domain.original_url(auth_path(:slack))
+      return
+    end
+
     require 'addressable/template'
     reverse_proxy @proxy_rule.url do |config|
       config.on_missing do |code, response|
@@ -71,6 +83,10 @@ class ProxyRulesController < ApplicationController
   end
 
   def proxy_rule_params
-    params.require(:proxy_rule).permit(:name, :domain, :url, :expired_at)
+    params.require(:proxy_rule).permit(:name, :domain, :url, :auth_type, :expired_at)
+  end
+
+  def request_from_wide?
+    IPAddr.new(WIDE_IPADDR_RANGE).include?(IPAddr.new(request.ip))
   end
 end
