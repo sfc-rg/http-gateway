@@ -7,6 +7,7 @@
         %th Name
         %th Domain
         %th Url
+        %th Auth Type
     %tbody
       - @proxy_rules.each do |rule|
         %tr
@@ -16,5 +17,6 @@
             %td= rule.id
           %td= rule.user.name
           %td= rule.name
-          %td= rule.domain
+          %td= link_to rule.domain, rule.link_url
           %td= rule.url
+          %td= rule.auth_type

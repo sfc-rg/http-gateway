@@ -9,4 +9,8 @@ class ProxyRule < ActiveRecord::Base
   enum auth_type: { open: 0, intranet: 1, slack_auth: 2 }
 
   scope :active, -> { where('expired_at IS NULL OR expired_at < ?', Time.now) }
+
+  def link_url
+    "http://#{self.domain}.#{Domain::BASE_DOMAIN}/"
+  end
 end
