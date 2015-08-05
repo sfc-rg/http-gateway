@@ -13,11 +13,12 @@ Rails.application.routes.draw do
   end
 
   def sub_domain?(request)
-    domain = request.subdomain.gsub(ProxyRule::SFC_GATEWAY_DOMAIN_REGEX, '') # sfc.widead.jp
-    if domain.present? || domain == 'www'
-      true
-    else
-      false
-    end
+    Domain.new(request).subdomain_request?
+    # domain = request.subdomain.gsub(ProxyRule::SFC_GATEWAY_DOMAIN_REGEX, '') # sfc.widead.jp
+    # if domain.present? || domain == 'www'
+    #   true
+    # else
+    #   false
+    # end
   end
 end

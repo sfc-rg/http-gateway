@@ -1,7 +1,7 @@
 class ProxyRulesController < ApplicationController
   include ReverseProxy::Controller
 
-  before_action :require_current_user
+  before_action :require_current_user, except: :filter
   before_action :set_proxy_rule, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -36,10 +36,9 @@ class ProxyRulesController < ApplicationController
   end
 
   def filter
-    domain = request.subdomain.gsub(ProxyRule::SFC_GATEWAY_DOMAIN_REGEX, '')
-    @proxy_rule = ProxyRule.find_by(domain: domain)
+    @proxy_rule = ProxyRule.find_by(domain: domain.subdomain)
     if @proxy_rule.blank?
-      redirect_to proxy_rules_path
+      redirect_to domain.original_url(proxy_rules_path)
       return
     end
 
@@ -54,7 +53,7 @@ class ProxyRulesController < ApplicationController
   private
 
   def require_current_user
-    redirect_to auth_path(:slack) if current_user.blank?
+    redirect_to domain.original_url(auth_path(:slack)) if current_user.blank?
   end
 
   def set_proxy_rule
