@@ -5,7 +5,7 @@ class ProxyRule < ActiveRecord::Base
 
   validates :name, presence: true
   validates :domain, format: { with: VALID_DOMAIN_REGEX }, uniqueness: true
-  validates :url, format: { with: /\Ahttp:/ }
+  validates :url, format: { with: /\Ahttps?:/ }
   enum auth_type: { open: 0, intranet: 1, slack_auth: 2 }
 
   scope :active, -> { where('expired_at IS NULL OR expired_at < ?', Time.now) }
