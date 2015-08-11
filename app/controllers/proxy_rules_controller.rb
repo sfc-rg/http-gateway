@@ -60,11 +60,7 @@ class ProxyRulesController < ApplicationController
     end
 
     require 'addressable/template'
-    reverse_proxy @proxy_rule.url do |config|
-      config.on_missing do |code, response|
-        redirect_to root_url and return
-      end
-    end
+    reverse_proxy @proxy_rule.url
   end
 
   private
