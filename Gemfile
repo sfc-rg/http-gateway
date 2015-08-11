@@ -20,7 +20,7 @@ gem 'omniauth'
 gem 'omniauth-slack'
 
 gem 'addressable'
-gem 'rails-reverse-proxy'
+gem 'rails-reverse-proxy', github: 'miyukki/rails-reverse-proxy'
 
 group :production do
   gem 'mysql2'
