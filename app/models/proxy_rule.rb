@@ -22,7 +22,7 @@ class ProxyRule < ActiveRecord::Base
   end
   enum auth_type: { open: 0, intranet: 1, slack_auth: 2 }
 
-  scope :active, -> { where('expired_at IS NULL OR expired_at < ?', Time.now) }
+  scope :active, -> { where('expired_at IS NULL OR expired_at > ?', Time.now) }
 
   def link_url
     "#{self.https? ? 'https' : 'http'}://#{self.domain}.#{Domain::BASE_DOMAIN}"

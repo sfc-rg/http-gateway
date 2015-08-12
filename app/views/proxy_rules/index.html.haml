@@ -9,16 +9,18 @@
         %th Url
         %th Auth Type
         %th HTTPS
+        %th Action
     %tbody
       - @proxy_rules.each do |rule|
         %tr
-          - if rule.user == current_user || !current_user.normal_user?
-            %td= link_to rule.id, edit_proxy_rule_path(rule)
-          - else
-            %td= rule.id
+          %td= rule.id
           %td= rule.user.name
           %td= rule.name
           %td= link_to rule.domain, rule.link_url
           %td= rule.url
           %td= rule.auth_type
           %td= rule.https
+          %td
+            - if editable_rule?(rule)
+              = link_to fa_icon('pencil'), edit_proxy_rule_path(rule)
+              = link_to fa_icon('trash-o'), proxy_rule_path(rule), method: :delete

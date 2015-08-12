@@ -25,4 +25,9 @@
             - else
               %li
                 %a= current_user.name
+
+    - if flash[:notice]
+      .container
+        %p.bg-success= flash[:notice]
+
     = yield

@@ -7,7 +7,7 @@ class ProxyRulesController < ApplicationController
   WIDE_IPADDR_RANGE = '203.178.0.0/16'
 
   def index
-    @proxy_rules = ProxyRule.active.all
+    @proxy_rules = ProxyRule.active
   end
 
   def new
@@ -17,7 +17,7 @@ class ProxyRulesController < ApplicationController
   def create
     @proxy_rule = ProxyRule.new(proxy_rule_params.merge(user: current_user))
     if @proxy_rule.save
-      redirect_to proxy_rules_path, notice: 'ユーザ登録しました'
+      redirect_to proxy_rules_path, notice: 'ルールを登録しました'
     else
       render 'new'
     end
@@ -28,13 +28,18 @@ class ProxyRulesController < ApplicationController
 
   def update
     if @proxy_rule.update(proxy_rule_params)
-      redirect_to proxy_rules_path, notice: 'ユーザ登録しました'
+      redirect_to proxy_rules_path, notice: 'ルールを編集しました'
     else
       render 'edit'
     end
   end
 
   def destroy
+    if @proxy_rule.update(expired_at: Time.now)
+      redirect_to proxy_rules_path, notice: 'ルールを削除しました'
+    else
+      render 'edit'
+    end
   end
 
   def filter
