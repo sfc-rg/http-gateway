@@ -14,6 +14,13 @@ class SessionController < ApplicationController
     end
 
     session[:user_id] = user.id
-    redirect_to root_path
+
+    state = request.env['omniauth.params']['state']
+    if state
+      proxy_rule = ProxyRule.active.find_by(domain: state)
+      redirect_to proxy_rule.link_url
+    else
+      redirect_to root_path
+    end
   end
 end

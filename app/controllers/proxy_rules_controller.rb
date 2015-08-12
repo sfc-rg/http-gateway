@@ -55,7 +55,7 @@ class ProxyRulesController < ApplicationController
     end
 
     if @proxy_rule.slack_auth? && current_user.blank?
-      redirect_to domain.original_url(auth_path(:slack))
+      redirect_to domain.original_url(auth_path(:slack, state: domain.subdomain))
       return
     end
 
