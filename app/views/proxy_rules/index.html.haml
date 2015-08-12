@@ -12,7 +12,7 @@
     %tbody
       - @proxy_rules.each do |rule|
         %tr
-          - if rule.user == current_user
+          - if rule.user == current_user || !current_user.normal_user?
             %td= link_to rule.id, edit_proxy_rule_path(rule)
           - else
             %td= rule.id

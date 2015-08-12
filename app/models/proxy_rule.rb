@@ -8,10 +8,16 @@ class ProxyRule < ActiveRecord::Base
   validates :domain, format: { with: VALID_DOMAIN_REGEX }, uniqueness: true
   validates :url, format: { with: /\Ahttps?:/ }
   validate do
+    next if self.user.super_user?
+
     require 'addressable/uri'
-    target_addr = IPAddr.new(Addressable::URI.parse(self.url).hostname)
-    unless IPAddr.new(TARGET_IPADDR_RANGE).include?(target_addr)
-      errors.add(:url, :has_invalid_target)
+    begin
+      target_addr = IPAddr.new(Addressable::URI.parse(self.url).hostname)
+      unless IPAddr.new(TARGET_IPADDR_RANGE).include?(target_addr)
+        errors.add(:url, :has_invalid_target)
+      end
+    rescue
+      errors.add(:url, :has_parse_error)
     end
   end
   enum auth_type: { open: 0, intranet: 1, slack_auth: 2 }

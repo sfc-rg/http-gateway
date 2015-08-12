@@ -38,7 +38,7 @@ class ProxyRulesController < ApplicationController
   end
 
   def filter
-    @proxy_rule = ProxyRule.find_by(domain: domain.subdomain)
+    @proxy_rule = ProxyRule.active.find_by(domain: domain.subdomain)
     if @proxy_rule.blank?
       redirect_to domain.original_url(proxy_rules_path)
       return
@@ -70,14 +70,14 @@ class ProxyRulesController < ApplicationController
   end
 
   def set_proxy_rule
-    @proxy_rule = ProxyRule.find_by(id: params[:id])
+    @proxy_rule = ProxyRule.active.find_by(id: params[:id])
 
     if @proxy_rule.blank?
       redirect_to status: :not_found
       return
     end
 
-    if @proxy_rule.user != current_user
+    if @proxy_rule.user != current_user && current_user.normal_user?
       redirect_to status: :forbidden
       return
     end
