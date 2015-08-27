@@ -1,8 +1,9 @@
 GIT
   remote: git://github.com/miyukki/rails-reverse-proxy.git
-  revision: 5733e6ea2cee4011dc55eff8c240f396177778c6
+  revision: f065acbd63c64d58e810a96d1d1289cb677bae7f
+  ref: f065acbd63c64d58e810a96d1d1289cb677bae7f
   specs:
-    rails-reverse-proxy (0.4.1)
+    rails-reverse-proxy (0.4.2)
       addressable
       cookiejar (~> 0.3.2)
       rack
@@ -316,3 +317,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6
