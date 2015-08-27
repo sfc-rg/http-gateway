@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
   def domain
     @domain ||= Domain.new(request)
   end
